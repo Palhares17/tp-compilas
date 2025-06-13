@@ -17,12 +17,12 @@ string_literal   \"([^\"\\]|\\.)*\"
 
 {ws}                            {/* Ignorar espaços em branco */}
 
-"TralaleroTralala"      { printf("TOKEN_TIPO_INT: %s\n", yytext); }
+"TralaleroTralala"                { printf("TOKEN_TIPO_INT: %s\n", yytext); }
 "BombardinoCrocodilo"             { printf("TOKEN_TIPO_STRING: %s\n", yytext); }
-"BrbrbrParapim"          { printf("TOKEN_TIPO_BOOLEAN: %s\n", yytext); }
+"BrbrbrParapim"                   { printf("TOKEN_TIPO_BOOLEAN: %s\n", yytext); }
 
-"ChipampanziniBananini"                { printf("TOKEN_FOR: %s\n", yytext); }
-"BallerinaCappuccina"        { printf("TOKEN_WHILE: %s\n", yytext); }
+"ChipampanziniBananini"           { printf("TOKEN_FOR: %s\n", yytext); }
+"BallerinaCappuccina"             { printf("TOKEN_WHILE: %s\n", yytext); }
 
 "BallerinaGlaucinna"          { printf("TOKEN_ABRE_BLOCO: %s\n", yytext); }
 "GlaucinnaBallerina"           { printf("TOKEN_FECHA_BLOCO: %s\n", yytext); }
