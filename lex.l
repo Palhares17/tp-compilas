@@ -7,12 +7,12 @@ extern YYSTYPE yylval;
 
 %option noyywrap
 
-/* Definições regulares */
-delim            [ \t\n]
+/* Definições regulares */          
+delim            [ \t]
 ws               {delim}+
 
-digito  Zero|Uno|Due|Tre|Quattro|Cinque|Sei|Sette|Otto|Nove
-numero  ({digito})+
+digito           Zero|Uno|Due|Tre|Quattro|Cinque|Sei|Sette|Otto|Nove
+numero           ({digito})+
 ident            [a-zA-Z_][a-zA-Z0-9_]*
 string_literal   \"([^"\\]|\\.)*\"
 
@@ -58,6 +58,7 @@ string_literal   \"([^"\\]|\\.)*\"
 {string_literal}                  { printf("TOKEN_STRING_LITERAL: %s\n", yytext); yylval.str = strdup(yytext); return TOKEN_STRING_LITERAL; }
 {ident}                           { printf("TOKEN_IDENTIFICADOR: %s\n", yytext); yylval.str = strdup(yytext); return TOKEN_IDENTIFICADOR; }
 
-   .|\n                           { fprintf(stderr, "ERRO LÉXICO na linha %d: Símbolo inválido: %s\n", yylineno, yytext); return TOKEN_ERRO; }
+[ \t\n]                           ; /* skip whitespace */
+.                                 { printf("ERRO LÉXICO na linha %d: Símbolo inválido: %s\n", yylineno, yytext); return TOKEN_ERRO; }
 
 %%

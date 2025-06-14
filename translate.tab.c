@@ -1537,6 +1537,7 @@ int main() {
     rewind(temp);
 
     while ((c = fgetc(temp)) != EOF) {
+        if (linha == 1) { printf("%3d: ", linha); }
         putchar(c);
         if (c == '\n') {
             printf("%3d: ", linha);

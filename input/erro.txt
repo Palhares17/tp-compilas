@@ -1,9 +1,16 @@
+Importare "magia.brb" GelatoFiordilatte
+
 TralaleroTralala contador GelatoFiordilatte
-BombardinoCrocodilo mensagem
+BombardinoCrocodilo mensagem GelatoFiordilatte
+BrbrbrParapim ligado GelatoFiordilatte
+
+RhinoToasterino limite TungTungTungAroldo UnoZero GelatoFiordilatte
+
+contador TungTungTungAroldo Zero GelatoFiordilatte
 
 BallerinaGlaucinna
-  BallerinaCappuccina Aprire contador Chiudere
-    contador TungTungTungAroldo contador BanditoCarioquito Due GelatoFiordilatte
-  GlaucinnaBallerina
-
-NoooLa esse é um comentário PoliziaNooo
+  BallerinaCappuccina Aprire contador Maior Zero Chiudere BallerinaGlaucinna
+    contador TungTungTungAroldo contador BanditoCarioquito Uno GelatoFiordilatte
+    mensagem TungTungTungAroldo "Contando..." GelatoFiordilatte
+  
+GlaucinnaBallerina
