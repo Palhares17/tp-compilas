@@ -2,7 +2,7 @@
 Este repositório contém a implementação do frontend de um compilador desenvolvido como parte do Trabalho Prático da disciplina CCF 441 – Compiladores, da Universidade Federal de Viçosa – Campus Florestal. A aplicação tem como objetivo principal a criação e análise de uma linguagem de programação original, chamada Piccola Lingua Brasiliana, concebida a partir do universo cômico do meme Italian Brainrot. A linguagem foi projetada com uma estética caricata, usando palavras e estruturas inspiradas na sonoridade do "italiano inventado", criando um ambiente lúdico e criativo para a aprendizagem dos conceitos formais de compiladores. Este compilador foi construído em C, utilizando as ferramentas Flex e Bison para as fases de análise léxica e sintática, além de incluir etapas de análise semântica e geração de código intermediário. O trabalho está dividido em três partes, refletindo o progresso incremental no desenvolvimento do compilador, desde a definição da linguagem até sua análise completa.
 
 ## 📚 Descrição da Linguagem
-A Piccola Lingua Brasiliana é uma linguagem procedural fictícia, criada com base no humor e estética do meme Italian Brainrot. Suas palavras-chave seguem um estilo caricatural italiano e seus comandos e estruturas utilizam personagens fictícios como “Fabianito Innamorato” e “Danieluzzo Supremo”. A linguagem foi pensada para ensinar os fundamentos de compiladores de maneira divertida e envolvente.
+A Piccola Lingua Brasiliana é uma linguagem procedural fictícia, criada com base no humor e estética do meme Italian Brainrot. Suas palavras-chave seguem um estilo caricatural italiano e seus comandos e estruturas utilizam personagens fictícios como "Fabianito Innamorato" e "Danieluzzo Supremo". A linguagem foi pensada para ensinar os fundamentos de compiladores de maneira divertida e envolvente.
 
 ## Integrantes
 - Aroldo Augusto Barbosa Simões - 4250
@@ -35,3 +35,57 @@ sudo apt install build-essential
 make
 ```
 - Após a execução do comando, o arquivo executável será gerado no diretório output/ e o sistema será executado.
+
+## Exemplos de execução
+
+### Código sintaticamente correto
+Arquivo: `input/entrada.txt`
+```txt
+Importare "magia.brb"
+
+TralaleroTralala contador
+BombardinoCrocodilo mensagem
+BrbrbrParapim ligado
+
+RhinoToasterino limite TungTungTungAroldo UnoZero
+
+BallerinaGlaucinna
+  BallerinaCappuccina Aprire contador Chiudere BallerinaGlaucinna
+    ChipampanziniBananini Aprire contador Chiudere BallerinaGlaucinna
+      contador TungTungTungAroldo contador BanditoCarioquito Due GelatoFiordilatte
+      mensagem TungTungTungAroldo "Contando..." GelatoFiordilatte
+    GlaucinnaBallerina
+  GlaucinnaBallerina
+GlaucinnaBallerina
+```
+Saída esperada:
+```
+Programa sintaticamente correto
+```
+
+### Código sintaticamente incorreto
+Arquivo: `input/erro.txt`
+```txt
+TralaleroTralala contador
+BombardinoCrocodilo mensagem
+BallerinaGlaucinna
+  BallerinaCappuccina Aprire contador Chiudere
+    contador TungTungTungAroldo contador BanditoCarioquito Due GelatoFiordilatte
+  GlaucinnaBallerina
+# Faltou fechar bloco principal
+```
+Saída esperada:
+```
+Erro próximo à linha 7: syntax error
+```
+
+## Como rodar outros testes?
+- Coloque arquivos de teste no diretório `input/`.
+- Altere o Makefile para apontar para o arquivo desejado ou rode manualmente:
+```bash
+./output/a.out < input/erro.txt
+```
+
+## Interpretação das mensagens de erro
+- Mensagens como `Erro próximo à linha X: syntax error` indicam erro sintático.
+- Mensagens como `ERRO LÉXICO na linha X: Símbolo inválido: ...` indicam erro léxico.

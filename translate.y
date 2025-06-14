@@ -78,6 +78,8 @@ lista_de_comandos:
 comando:
     declaracao
     | atribuicao
+    | declaracao_const
+    | importacao
     | repeticao_while
     | repeticao_for
     | comando_print
@@ -85,18 +87,22 @@ comando:
 ;
 
 declaracao:
-    tipo TOKEN_IDENTIFICADOR { strcpy(nome_identificador_atual, $2); }
-    TOKEN_ATRIBUICAO expressao ';'
-    {
-        set_valor(nome_identificador_atual, $5);
-    }
+    tipo TOKEN_IDENTIFICADOR ';'
+    | tipo TOKEN_IDENTIFICADOR TOKEN_ATRIBUICAO expressao ';'
+;
+
+declaracao_const:
+    TOKEN_CONST TOKEN_IDENTIFICADOR TOKEN_ATRIBUICAO expressao ';'
+;
+
+importacao:
+    TOKEN_IMPORT TOKEN_STRING_LITERAL ';'
 ;
 
 atribuicao:
-    TOKEN_IDENTIFICADOR { strcpy(nome_identificador_atual, $1); }
-    TOKEN_ATRIBUICAO expressao ';'
+    TOKEN_IDENTIFICADOR TOKEN_ATRIBUICAO expressao ';'
     {
-        set_valor(nome_identificador_atual, $4);
+        set_valor($1, $3);
     }
 ;
 
@@ -132,6 +138,7 @@ tipo:
 expressao:
     TOKEN_IDENTIFICADOR        { $$ = get_valor($1); }
     | TOKEN_NUMERO             { $$ = atoi($1); }
+    | TOKEN_STRING_LITERAL     { /* Para simplificação, retorna 0 para strings em contexto aritmético */ $$ = 0; }
     | expressao TOKEN_ADICAO expressao        { $$ = $1 + $3; }
     | expressao TOKEN_SUBTRACAO expressao     { $$ = $1 - $3; }
     | expressao TOKEN_MULTIPLICACAO expressao { $$ = $1 * $3; }
