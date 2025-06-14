@@ -18,7 +18,7 @@ string_literal   \"([^"\\]|\\.)*\"
 
 %%
 
-{ws}                            {/* Ignorar espaços em branco */}
+{ws}                              {/* Ignorar espaços em branco */}
 
 "TralaleroTralala"                { printf("TOKEN_TIPO_INT: %s\n", yytext); return TOKEN_TIPO_INT; }
 "BombardinoCrocodilo"             { printf("TOKEN_TIPO_STRING: %s\n", yytext); return TOKEN_TIPO_STRING; }
@@ -45,19 +45,19 @@ string_literal   \"([^"\\]|\\.)*\"
 "Importare"                       { printf("TOKEN_IMPORT: %s\n", yytext); return TOKEN_IMPORT; }
 "LaVacaSaturnoSaturnita"          { printf("TOKEN_FUNCTION: %s\n", yytext); return TOKEN_FUNCTION; }
 
-"GelatoFiordilatte" { printf("PONTO_E_VIRGULA: %s\n", yytext); return ';'; }
+"GelatoFiordilatte"               { printf("PONTO_E_VIRGULA: %s\n", yytext); return ';'; }
 
-"Maior" { printf("TOKEN_MAIOR: %s\n", yytext); return TOKEN_MAIOR; }
-"Menor" { printf("TOKEN_MENOR: %s\n", yytext); return TOKEN_MENOR; }
-"Igualdade" { printf("TOKEN_IGUALDADE: %s\n", yytext); return TOKEN_IGUALDADE; }
-"Diferente" { printf("TOKEN_DIFERENTE: %s\n", yytext); return TOKEN_DIFERENTE; }
-"MaiorIgual" { printf("TOKEN_MAIOR_IGUAL: %s\n", yytext); return TOKEN_MAIOR_IGUAL; }
-"MenorIgual" { printf("TOKEN_MENOR_IGUAL: %s\n", yytext); return TOKEN_MENOR_IGUAL; }
+"Maior"                           { printf("TOKEN_MAIOR: %s\n", yytext); return TOKEN_MAIOR; }
+"Menor"                           { printf("TOKEN_MENOR: %s\n", yytext); return TOKEN_MENOR; }
+"Igualdade"                       { printf("TOKEN_IGUALDADE: %s\n", yytext); return TOKEN_IGUALDADE; }
+"Diferente"                       { printf("TOKEN_DIFERENTE: %s\n", yytext); return TOKEN_DIFERENTE; }
+"MaiorIgual"                      { printf("TOKEN_MAIOR_IGUAL: %s\n", yytext); return TOKEN_MAIOR_IGUAL; }
+"MenorIgual"                      { printf("TOKEN_MENOR_IGUAL: %s\n", yytext); return TOKEN_MENOR_IGUAL; }
 
-{numero}    { yylval.str = strdup(yytext); return TOKEN_NUMERO; }
-{string_literal} { printf("TOKEN_STRING_LITERAL: %s\n", yytext); yylval.str = strdup(yytext); return TOKEN_STRING_LITERAL; }
-{ident}     { printf("TOKEN_IDENTIFICADOR: %s\n", yytext); yylval.str = strdup(yytext); return TOKEN_IDENTIFICADOR; }
+{numero}                          { yylval.str = strdup(yytext); return TOKEN_NUMERO; }
+{string_literal}                  { printf("TOKEN_STRING_LITERAL: %s\n", yytext); yylval.str = strdup(yytext); return TOKEN_STRING_LITERAL; }
+{ident}                           { printf("TOKEN_IDENTIFICADOR: %s\n", yytext); yylval.str = strdup(yytext); return TOKEN_IDENTIFICADOR; }
 
-   .|\n    { fprintf(stderr, "ERRO LÉXICO na linha %d: Símbolo inválido: %s\n", yylineno, yytext); return TOKEN_ERRO; }
+   .|\n                           { fprintf(stderr, "ERRO LÉXICO na linha %d: Símbolo inválido: %s\n", yylineno, yytext); return TOKEN_ERRO; }
 
 %%

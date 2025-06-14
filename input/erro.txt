@@ -1,7 +1,9 @@
-TralaleroTralala contador
+TralaleroTralala contador GelatoFiordilatte
 BombardinoCrocodilo mensagem
+
 BallerinaGlaucinna
   BallerinaCappuccina Aprire contador Chiudere
     contador TungTungTungAroldo contador BanditoCarioquito Due GelatoFiordilatte
   GlaucinnaBallerina
-# Faltou fechar bloco principal 
+
+NoooLa esse é um comentário PoliziaNooo

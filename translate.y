@@ -43,6 +43,46 @@ void set_valor(char *nome, int valor) {
 
 char nome_identificador_atual[64];
 
+void print_centered(const char *text, int width) {
+    int len = strlen(text);
+    int pad = (width - len) / 2;
+    for (int i = 0; i < pad; i++) printf(" ");
+    printf("%s", text);
+    for (int i = 0; i < width - len - pad; i++) printf(" ");
+}
+
+void print_truncated(const char *text, int width) {
+    int len = strlen(text);
+    if (len > width - 1) {
+        for (int i = 0; i < width - 4; i++) putchar(text[i]);
+        printf("...");
+    } else {
+        printf("%-*s", width, text);
+    }
+}
+
+void imprimir_tabela_simbolos() {
+    printf("\n\033[1;36m╔════════════════════════╦════════════════════════╗\033[0m\n");
+    printf("\033[1;36m║\033[1;33m");
+    print_centered("Nome", 24);
+    printf("\033[1;36m║\033[1;33m");
+    print_centered("Valor", 24);
+    printf("\033[1;36m║\033[0m\n");
+    printf("\033[1;36m╠════════════════════════╬════════════════════════╣\033[0m\n");
+
+    for (int i = 0; i < qtd_simbolos; i++) {
+        printf("\033[1;36m║\033[0m \033[1;32m");
+        print_truncated(tabela_simbolos[i].nome, 24);
+        printf("\033[0m \033[1;36m║\033[0m \033[1;35m");
+        char valor_str[25];
+        snprintf(valor_str, sizeof(valor_str), "%d", tabela_simbolos[i].valor);
+        print_truncated(valor_str, 24);
+        printf("\033[0m \033[1;36m║\033[0m\n");
+    }
+
+    printf("\033[1;36m╚════════════════════════╩════════════════════════╝\033[0m\n");
+}
+
 %}
 
 %union {
@@ -161,17 +201,40 @@ operador_relacional:
 %%
 
 void yyerror(const char *s) {
+    printf("\n");
     fprintf(stderr, "Erro próximo à linha %d: %s\n", yylineno, s);
 }
 
-int main(int argc, char **argv) {
-    if (argc > 1) {
-        yyin = fopen(argv[1], "r");
-        if (!yyin) {
-            perror("Erro ao abrir arquivo");
-            return 1;
+int main() {
+    yyin = stdin;
+    int linha = 1;
+    char c;
+    FILE *temp = tmpfile();
+
+    while ((c = getchar()) != EOF) {
+        if (c == '\n') linha++;
+        fputc(c, temp);
+    }
+
+    rewind(temp);
+    yyin = temp;
+
+    printf("====== Código fonte: ======\n");
+    linha = 0;
+    rewind(temp);
+
+    while ((c = fgetc(temp)) != EOF) {
+        putchar(c);
+        if (c == '\n') {
+            printf("%3d: ", linha);
+            linha++;
         }
     }
+    
+    rewind(temp);
+    yyin = temp;
     yyparse();
+    imprimir_tabela_simbolos();
+    fclose(temp);
     return 0;
 }
