@@ -1,11 +1,8 @@
-file = lex.l
-input = input/erro.txt
-
 all:
-	bison -d translate.y
-	flex $(file)
-	gcc translate.tab.c lex.yy.c -o output/a.out
-	./output/a.out < $(input)
+	flex ./src/lex.l
+	yacc -v -d ./src/yacc.y
+	gcc lex.yy.c y.tab.c ./src/tabela.c ./src/lib.c ./src/arvore.c ./src/codigo.c
+	./a.out < ./src/test/entrada2.txt
 
 clean:
-	rm -rf ./output/a.out
+	rm -f lex.yy.c y.tab.c y.tab.h a.out
