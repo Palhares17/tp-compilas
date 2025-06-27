@@ -1,0 +1,1077 @@
+Terminais sem uso na gramática
+
+    CHARACTER
+    AND
+    OR
+    UNARY
+    FUNCTION
+    CONST
+    CONTINUE
+    BREAK
+
+
+Estado 35 conflitos: 9 de deslocamento/redução
+Estado 71 conflitos: 4 de deslocamento/redução
+
+
+Gramática
+
+    0 $accept: begin $end
+
+    1 begin: main '(' ')' '{' body return '}'
+
+    2 main: datatype ID
+
+    3 datatype: INT
+    4         | FLOAT
+    5         | CHAR
+    6         | VOID
+
+    7 body: FOR '(' statement ';' condition ';' statement ')' '{' body '}'
+    8     | IF '(' condition ')' '{' body '}' else
+    9     | statement ';'
+   10     | body body
+   11     | PRINT '(' STR ')' ';'
+   12     | WHILE '(' condition ')' '{' body '}'
+
+   13 else: ELSE '{' body '}'
+   14     | ε
+
+   15 condition: value relop value
+   16          | TRUE
+   17          | FALSE
+   18          | ε
+
+   19 $@1: ε
+
+   20 statement: datatype ID $@1 init
+   21          | ID '=' expression
+   22          | ID relop expression
+
+   23 init: '=' value
+   24     | ε
+
+   25 expression: expression arithmetic expression
+   26           | value
+
+   27 arithmetic: ADD
+   28           | SUBTRACT
+   29           | MULTIPLY
+   30           | DIVIDE
+
+   31 relop: LT
+   32      | GT
+   33      | LE
+   34      | GE
+   35      | EQ
+   36      | NE
+
+   37 value: NUMBER
+   38      | FLOAT_NUM
+   39      | ID
+
+   40 return: RETURN value ';'
+   41       | ε
+
+
+Terminais, com as regras onde eles aparecem
+
+    $end (0) 0
+    '(' (40) 1 7 8 11 12
+    ')' (41) 1 7 8 11 12
+    ';' (59) 7 9 11 40
+    '=' (61) 21 23
+    '{' (123) 1 7 8 12 13
+    '}' (125) 1 7 8 12 13
+    error (256)
+    VOID <lexval> (258) 6
+    CHARACTER <lexval> (259)
+    PRINT <lexval> (260) 11
+    INT <lexval> (261) 3
+    FLOAT <lexval> (262) 4
+    CHAR <lexval> (263) 5
+    FOR <lexval> (264) 7
+    IF <lexval> (265) 8
+    ELSE <lexval> (266) 13
+    TRUE <lexval> (267) 16
+    FALSE <lexval> (268) 17
+    NUMBER <lexval> (269) 37
+    FLOAT_NUM <lexval> (270) 38
+    ID <lexval> (271) 2 20 21 22 39
+    LE <lexval> (272) 33
+    GE <lexval> (273) 34
+    EQ <lexval> (274) 35
+    NE <lexval> (275) 36
+    GT <lexval> (276) 32
+    LT <lexval> (277) 31
+    AND <lexval> (278)
+    OR <lexval> (279)
+    STR <lexval> (280) 11
+    ADD <lexval> (281) 27
+    MULTIPLY <lexval> (282) 29
+    DIVIDE <lexval> (283) 30
+    SUBTRACT <lexval> (284) 28
+    UNARY <lexval> (285)
+    RETURN <lexval> (286) 40
+    WHILE <lexval> (287) 12
+    FUNCTION <lexval> (288)
+    CONST <lexval> (289)
+    CONTINUE <lexval> (290)
+    BREAK <lexval> (291)
+
+
+Não terminais com as regras onde eles aparecem
+
+    $accept (43)
+        à esquerda: 0
+    begin <lexval> (44)
+        à esquerda: 1
+        à direita: 0
+    main <lexval> (45)
+        à esquerda: 2
+        à direita: 1
+    datatype <lexval> (46)
+        à esquerda: 3 4 5 6
+        à direita: 2 20
+    body <lexval> (47)
+        à esquerda: 7 8 9 10 11 12
+        à direita: 1 7 8 10 12 13
+    else <lexval> (48)
+        à esquerda: 13 14
+        à direita: 8
+    condition <lexval> (49)
+        à esquerda: 15 16 17 18
+        à direita: 7 8 12
+    statement <lexval> (50)
+        à esquerda: 20 21 22
+        à direita: 7 9
+    $@1 (51)
+        à esquerda: 19
+        à direita: 20
+    init <lexval> (52)
+        à esquerda: 23 24
+        à direita: 20
+    expression <lexval> (53)
+        à esquerda: 25 26
+        à direita: 21 22 25
+    arithmetic <lexval> (54)
+        à esquerda: 27 28 29 30
+        à direita: 25
+    relop <lexval> (55)
+        à esquerda: 31 32 33 34 35 36
+        à direita: 15 22
+    value <lexval> (56)
+        à esquerda: 37 38 39
+        à direita: 15 23 26 40
+    return <lexval> (57)
+        à esquerda: 40 41
+        à direita: 1
+
+
+Estado 0
+
+    0 $accept: • begin $end
+
+    VOID   deslocar, e ir ao estado 1
+    INT    deslocar, e ir ao estado 2
+    FLOAT  deslocar, e ir ao estado 3
+    CHAR   deslocar, e ir ao estado 4
+
+    begin     ir ao estado 5
+    main      ir ao estado 6
+    datatype  ir ao estado 7
+
+
+Estado 1
+
+    6 datatype: VOID •
+
+    $padrão  reduzir usando a regra 6 (datatype)
+
+
+Estado 2
+
+    3 datatype: INT •
+
+    $padrão  reduzir usando a regra 3 (datatype)
+
+
+Estado 3
+
+    4 datatype: FLOAT •
+
+    $padrão  reduzir usando a regra 4 (datatype)
+
+
+Estado 4
+
+    5 datatype: CHAR •
+
+    $padrão  reduzir usando a regra 5 (datatype)
+
+
+Estado 5
+
+    0 $accept: begin • $end
+
+    $end  deslocar, e ir ao estado 8
+
+
+Estado 6
+
+    1 begin: main • '(' ')' '{' body return '}'
+
+    '('  deslocar, e ir ao estado 9
+
+
+Estado 7
+
+    2 main: datatype • ID
+
+    ID  deslocar, e ir ao estado 10
+
+
+Estado 8
+
+    0 $accept: begin $end •
+
+    $padrão  aceitar
+
+
+Estado 9
+
+    1 begin: main '(' • ')' '{' body return '}'
+
+    ')'  deslocar, e ir ao estado 11
+
+
+Estado 10
+
+    2 main: datatype ID •
+
+    $padrão  reduzir usando a regra 2 (main)
+
+
+Estado 11
+
+    1 begin: main '(' ')' • '{' body return '}'
+
+    '{'  deslocar, e ir ao estado 12
+
+
+Estado 12
+
+    1 begin: main '(' ')' '{' • body return '}'
+
+    VOID   deslocar, e ir ao estado 1
+    PRINT  deslocar, e ir ao estado 13
+    INT    deslocar, e ir ao estado 2
+    FLOAT  deslocar, e ir ao estado 3
+    CHAR   deslocar, e ir ao estado 4
+    FOR    deslocar, e ir ao estado 14
+    IF     deslocar, e ir ao estado 15
+    ID     deslocar, e ir ao estado 16
+    WHILE  deslocar, e ir ao estado 17
+
+    datatype   ir ao estado 18
+    body       ir ao estado 19
+    statement  ir ao estado 20
+
+
+Estado 13
+
+   11 body: PRINT • '(' STR ')' ';'
+
+    '('  deslocar, e ir ao estado 21
+
+
+Estado 14
+
+    7 body: FOR • '(' statement ';' condition ';' statement ')' '{' body '}'
+
+    '('  deslocar, e ir ao estado 22
+
+
+Estado 15
+
+    8 body: IF • '(' condition ')' '{' body '}' else
+
+    '('  deslocar, e ir ao estado 23
+
+
+Estado 16
+
+   21 statement: ID • '=' expression
+   22          | ID • relop expression
+
+    LE   deslocar, e ir ao estado 24
+    GE   deslocar, e ir ao estado 25
+    EQ   deslocar, e ir ao estado 26
+    NE   deslocar, e ir ao estado 27
+    GT   deslocar, e ir ao estado 28
+    LT   deslocar, e ir ao estado 29
+    '='  deslocar, e ir ao estado 30
+
+    relop  ir ao estado 31
+
+
+Estado 17
+
+   12 body: WHILE • '(' condition ')' '{' body '}'
+
+    '('  deslocar, e ir ao estado 32
+
+
+Estado 18
+
+   20 statement: datatype • ID $@1 init
+
+    ID  deslocar, e ir ao estado 33
+
+
+Estado 19
+
+    1 begin: main '(' ')' '{' body • return '}'
+   10 body: body • body
+
+    VOID    deslocar, e ir ao estado 1
+    PRINT   deslocar, e ir ao estado 13
+    INT     deslocar, e ir ao estado 2
+    FLOAT   deslocar, e ir ao estado 3
+    CHAR    deslocar, e ir ao estado 4
+    FOR     deslocar, e ir ao estado 14
+    IF      deslocar, e ir ao estado 15
+    ID      deslocar, e ir ao estado 16
+    RETURN  deslocar, e ir ao estado 34
+    WHILE   deslocar, e ir ao estado 17
+
+    $padrão  reduzir usando a regra 41 (return)
+
+    datatype   ir ao estado 18
+    body       ir ao estado 35
+    statement  ir ao estado 20
+    return     ir ao estado 36
+
+
+Estado 20
+
+    9 body: statement • ';'
+
+    ';'  deslocar, e ir ao estado 37
+
+
+Estado 21
+
+   11 body: PRINT '(' • STR ')' ';'
+
+    STR  deslocar, e ir ao estado 38
+
+
+Estado 22
+
+    7 body: FOR '(' • statement ';' condition ';' statement ')' '{' body '}'
+
+    VOID   deslocar, e ir ao estado 1
+    INT    deslocar, e ir ao estado 2
+    FLOAT  deslocar, e ir ao estado 3
+    CHAR   deslocar, e ir ao estado 4
+    ID     deslocar, e ir ao estado 16
+
+    datatype   ir ao estado 18
+    statement  ir ao estado 39
+
+
+Estado 23
+
+    8 body: IF '(' • condition ')' '{' body '}' else
+
+    TRUE       deslocar, e ir ao estado 40
+    FALSE      deslocar, e ir ao estado 41
+    NUMBER     deslocar, e ir ao estado 42
+    FLOAT_NUM  deslocar, e ir ao estado 43
+    ID         deslocar, e ir ao estado 44
+
+    $padrão  reduzir usando a regra 18 (condition)
+
+    condition  ir ao estado 45
+    value      ir ao estado 46
+
+
+Estado 24
+
+   33 relop: LE •
+
+    $padrão  reduzir usando a regra 33 (relop)
+
+
+Estado 25
+
+   34 relop: GE •
+
+    $padrão  reduzir usando a regra 34 (relop)
+
+
+Estado 26
+
+   35 relop: EQ •
+
+    $padrão  reduzir usando a regra 35 (relop)
+
+
+Estado 27
+
+   36 relop: NE •
+
+    $padrão  reduzir usando a regra 36 (relop)
+
+
+Estado 28
+
+   32 relop: GT •
+
+    $padrão  reduzir usando a regra 32 (relop)
+
+
+Estado 29
+
+   31 relop: LT •
+
+    $padrão  reduzir usando a regra 31 (relop)
+
+
+Estado 30
+
+   21 statement: ID '=' • expression
+
+    NUMBER     deslocar, e ir ao estado 42
+    FLOAT_NUM  deslocar, e ir ao estado 43
+    ID         deslocar, e ir ao estado 44
+
+    expression  ir ao estado 47
+    value       ir ao estado 48
+
+
+Estado 31
+
+   22 statement: ID relop • expression
+
+    NUMBER     deslocar, e ir ao estado 42
+    FLOAT_NUM  deslocar, e ir ao estado 43
+    ID         deslocar, e ir ao estado 44
+
+    expression  ir ao estado 49
+    value       ir ao estado 48
+
+
+Estado 32
+
+   12 body: WHILE '(' • condition ')' '{' body '}'
+
+    TRUE       deslocar, e ir ao estado 40
+    FALSE      deslocar, e ir ao estado 41
+    NUMBER     deslocar, e ir ao estado 42
+    FLOAT_NUM  deslocar, e ir ao estado 43
+    ID         deslocar, e ir ao estado 44
+
+    $padrão  reduzir usando a regra 18 (condition)
+
+    condition  ir ao estado 50
+    value      ir ao estado 46
+
+
+Estado 33
+
+   20 statement: datatype ID • $@1 init
+
+    $padrão  reduzir usando a regra 19 ($@1)
+
+    $@1  ir ao estado 51
+
+
+Estado 34
+
+   40 return: RETURN • value ';'
+
+    NUMBER     deslocar, e ir ao estado 42
+    FLOAT_NUM  deslocar, e ir ao estado 43
+    ID         deslocar, e ir ao estado 44
+
+    value  ir ao estado 52
+
+
+Estado 35
+
+   10 body: body • body
+   10     | body body •
+
+    VOID   deslocar, e ir ao estado 1
+    PRINT  deslocar, e ir ao estado 13
+    INT    deslocar, e ir ao estado 2
+    FLOAT  deslocar, e ir ao estado 3
+    CHAR   deslocar, e ir ao estado 4
+    FOR    deslocar, e ir ao estado 14
+    IF     deslocar, e ir ao estado 15
+    ID     deslocar, e ir ao estado 16
+    WHILE  deslocar, e ir ao estado 17
+
+    VOID     [reduzir usando a regra 10 (body)]
+    PRINT    [reduzir usando a regra 10 (body)]
+    INT      [reduzir usando a regra 10 (body)]
+    FLOAT    [reduzir usando a regra 10 (body)]
+    CHAR     [reduzir usando a regra 10 (body)]
+    FOR      [reduzir usando a regra 10 (body)]
+    IF       [reduzir usando a regra 10 (body)]
+    ID       [reduzir usando a regra 10 (body)]
+    WHILE    [reduzir usando a regra 10 (body)]
+    $padrão  reduzir usando a regra 10 (body)
+
+    datatype   ir ao estado 18
+    body       ir ao estado 35
+    statement  ir ao estado 20
+
+
+Estado 36
+
+    1 begin: main '(' ')' '{' body return • '}'
+
+    '}'  deslocar, e ir ao estado 53
+
+
+Estado 37
+
+    9 body: statement ';' •
+
+    $padrão  reduzir usando a regra 9 (body)
+
+
+Estado 38
+
+   11 body: PRINT '(' STR • ')' ';'
+
+    ')'  deslocar, e ir ao estado 54
+
+
+Estado 39
+
+    7 body: FOR '(' statement • ';' condition ';' statement ')' '{' body '}'
+
+    ';'  deslocar, e ir ao estado 55
+
+
+Estado 40
+
+   16 condition: TRUE •
+
+    $padrão  reduzir usando a regra 16 (condition)
+
+
+Estado 41
+
+   17 condition: FALSE •
+
+    $padrão  reduzir usando a regra 17 (condition)
+
+
+Estado 42
+
+   37 value: NUMBER •
+
+    $padrão  reduzir usando a regra 37 (value)
+
+
+Estado 43
+
+   38 value: FLOAT_NUM •
+
+    $padrão  reduzir usando a regra 38 (value)
+
+
+Estado 44
+
+   39 value: ID •
+
+    $padrão  reduzir usando a regra 39 (value)
+
+
+Estado 45
+
+    8 body: IF '(' condition • ')' '{' body '}' else
+
+    ')'  deslocar, e ir ao estado 56
+
+
+Estado 46
+
+   15 condition: value • relop value
+
+    LE  deslocar, e ir ao estado 24
+    GE  deslocar, e ir ao estado 25
+    EQ  deslocar, e ir ao estado 26
+    NE  deslocar, e ir ao estado 27
+    GT  deslocar, e ir ao estado 28
+    LT  deslocar, e ir ao estado 29
+
+    relop  ir ao estado 57
+
+
+Estado 47
+
+   21 statement: ID '=' expression •
+   25 expression: expression • arithmetic expression
+
+    ADD       deslocar, e ir ao estado 58
+    MULTIPLY  deslocar, e ir ao estado 59
+    DIVIDE    deslocar, e ir ao estado 60
+    SUBTRACT  deslocar, e ir ao estado 61
+
+    $padrão  reduzir usando a regra 21 (statement)
+
+    arithmetic  ir ao estado 62
+
+
+Estado 48
+
+   26 expression: value •
+
+    $padrão  reduzir usando a regra 26 (expression)
+
+
+Estado 49
+
+   22 statement: ID relop expression •
+   25 expression: expression • arithmetic expression
+
+    ADD       deslocar, e ir ao estado 58
+    MULTIPLY  deslocar, e ir ao estado 59
+    DIVIDE    deslocar, e ir ao estado 60
+    SUBTRACT  deslocar, e ir ao estado 61
+
+    $padrão  reduzir usando a regra 22 (statement)
+
+    arithmetic  ir ao estado 62
+
+
+Estado 50
+
+   12 body: WHILE '(' condition • ')' '{' body '}'
+
+    ')'  deslocar, e ir ao estado 63
+
+
+Estado 51
+
+   20 statement: datatype ID $@1 • init
+
+    '='  deslocar, e ir ao estado 64
+
+    $padrão  reduzir usando a regra 24 (init)
+
+    init  ir ao estado 65
+
+
+Estado 52
+
+   40 return: RETURN value • ';'
+
+    ';'  deslocar, e ir ao estado 66
+
+
+Estado 53
+
+    1 begin: main '(' ')' '{' body return '}' •
+
+    $padrão  reduzir usando a regra 1 (begin)
+
+
+Estado 54
+
+   11 body: PRINT '(' STR ')' • ';'
+
+    ';'  deslocar, e ir ao estado 67
+
+
+Estado 55
+
+    7 body: FOR '(' statement ';' • condition ';' statement ')' '{' body '}'
+
+    TRUE       deslocar, e ir ao estado 40
+    FALSE      deslocar, e ir ao estado 41
+    NUMBER     deslocar, e ir ao estado 42
+    FLOAT_NUM  deslocar, e ir ao estado 43
+    ID         deslocar, e ir ao estado 44
+
+    $padrão  reduzir usando a regra 18 (condition)
+
+    condition  ir ao estado 68
+    value      ir ao estado 46
+
+
+Estado 56
+
+    8 body: IF '(' condition ')' • '{' body '}' else
+
+    '{'  deslocar, e ir ao estado 69
+
+
+Estado 57
+
+   15 condition: value relop • value
+
+    NUMBER     deslocar, e ir ao estado 42
+    FLOAT_NUM  deslocar, e ir ao estado 43
+    ID         deslocar, e ir ao estado 44
+
+    value  ir ao estado 70
+
+
+Estado 58
+
+   27 arithmetic: ADD •
+
+    $padrão  reduzir usando a regra 27 (arithmetic)
+
+
+Estado 59
+
+   29 arithmetic: MULTIPLY •
+
+    $padrão  reduzir usando a regra 29 (arithmetic)
+
+
+Estado 60
+
+   30 arithmetic: DIVIDE •
+
+    $padrão  reduzir usando a regra 30 (arithmetic)
+
+
+Estado 61
+
+   28 arithmetic: SUBTRACT •
+
+    $padrão  reduzir usando a regra 28 (arithmetic)
+
+
+Estado 62
+
+   25 expression: expression arithmetic • expression
+
+    NUMBER     deslocar, e ir ao estado 42
+    FLOAT_NUM  deslocar, e ir ao estado 43
+    ID         deslocar, e ir ao estado 44
+
+    expression  ir ao estado 71
+    value       ir ao estado 48
+
+
+Estado 63
+
+   12 body: WHILE '(' condition ')' • '{' body '}'
+
+    '{'  deslocar, e ir ao estado 72
+
+
+Estado 64
+
+   23 init: '=' • value
+
+    NUMBER     deslocar, e ir ao estado 42
+    FLOAT_NUM  deslocar, e ir ao estado 43
+    ID         deslocar, e ir ao estado 44
+
+    value  ir ao estado 73
+
+
+Estado 65
+
+   20 statement: datatype ID $@1 init •
+
+    $padrão  reduzir usando a regra 20 (statement)
+
+
+Estado 66
+
+   40 return: RETURN value ';' •
+
+    $padrão  reduzir usando a regra 40 (return)
+
+
+Estado 67
+
+   11 body: PRINT '(' STR ')' ';' •
+
+    $padrão  reduzir usando a regra 11 (body)
+
+
+Estado 68
+
+    7 body: FOR '(' statement ';' condition • ';' statement ')' '{' body '}'
+
+    ';'  deslocar, e ir ao estado 74
+
+
+Estado 69
+
+    8 body: IF '(' condition ')' '{' • body '}' else
+
+    VOID   deslocar, e ir ao estado 1
+    PRINT  deslocar, e ir ao estado 13
+    INT    deslocar, e ir ao estado 2
+    FLOAT  deslocar, e ir ao estado 3
+    CHAR   deslocar, e ir ao estado 4
+    FOR    deslocar, e ir ao estado 14
+    IF     deslocar, e ir ao estado 15
+    ID     deslocar, e ir ao estado 16
+    WHILE  deslocar, e ir ao estado 17
+
+    datatype   ir ao estado 18
+    body       ir ao estado 75
+    statement  ir ao estado 20
+
+
+Estado 70
+
+   15 condition: value relop value •
+
+    $padrão  reduzir usando a regra 15 (condition)
+
+
+Estado 71
+
+   25 expression: expression • arithmetic expression
+   25           | expression arithmetic expression •
+
+    ADD       deslocar, e ir ao estado 58
+    MULTIPLY  deslocar, e ir ao estado 59
+    DIVIDE    deslocar, e ir ao estado 60
+    SUBTRACT  deslocar, e ir ao estado 61
+
+    ADD       [reduzir usando a regra 25 (expression)]
+    MULTIPLY  [reduzir usando a regra 25 (expression)]
+    DIVIDE    [reduzir usando a regra 25 (expression)]
+    SUBTRACT  [reduzir usando a regra 25 (expression)]
+    $padrão   reduzir usando a regra 25 (expression)
+
+    arithmetic  ir ao estado 62
+
+
+Estado 72
+
+   12 body: WHILE '(' condition ')' '{' • body '}'
+
+    VOID   deslocar, e ir ao estado 1
+    PRINT  deslocar, e ir ao estado 13
+    INT    deslocar, e ir ao estado 2
+    FLOAT  deslocar, e ir ao estado 3
+    CHAR   deslocar, e ir ao estado 4
+    FOR    deslocar, e ir ao estado 14
+    IF     deslocar, e ir ao estado 15
+    ID     deslocar, e ir ao estado 16
+    WHILE  deslocar, e ir ao estado 17
+
+    datatype   ir ao estado 18
+    body       ir ao estado 76
+    statement  ir ao estado 20
+
+
+Estado 73
+
+   23 init: '=' value •
+
+    $padrão  reduzir usando a regra 23 (init)
+
+
+Estado 74
+
+    7 body: FOR '(' statement ';' condition ';' • statement ')' '{' body '}'
+
+    VOID   deslocar, e ir ao estado 1
+    INT    deslocar, e ir ao estado 2
+    FLOAT  deslocar, e ir ao estado 3
+    CHAR   deslocar, e ir ao estado 4
+    ID     deslocar, e ir ao estado 16
+
+    datatype   ir ao estado 18
+    statement  ir ao estado 77
+
+
+Estado 75
+
+    8 body: IF '(' condition ')' '{' body • '}' else
+   10     | body • body
+
+    VOID   deslocar, e ir ao estado 1
+    PRINT  deslocar, e ir ao estado 13
+    INT    deslocar, e ir ao estado 2
+    FLOAT  deslocar, e ir ao estado 3
+    CHAR   deslocar, e ir ao estado 4
+    FOR    deslocar, e ir ao estado 14
+    IF     deslocar, e ir ao estado 15
+    ID     deslocar, e ir ao estado 16
+    WHILE  deslocar, e ir ao estado 17
+    '}'    deslocar, e ir ao estado 78
+
+    datatype   ir ao estado 18
+    body       ir ao estado 35
+    statement  ir ao estado 20
+
+
+Estado 76
+
+   10 body: body • body
+   12     | WHILE '(' condition ')' '{' body • '}'
+
+    VOID   deslocar, e ir ao estado 1
+    PRINT  deslocar, e ir ao estado 13
+    INT    deslocar, e ir ao estado 2
+    FLOAT  deslocar, e ir ao estado 3
+    CHAR   deslocar, e ir ao estado 4
+    FOR    deslocar, e ir ao estado 14
+    IF     deslocar, e ir ao estado 15
+    ID     deslocar, e ir ao estado 16
+    WHILE  deslocar, e ir ao estado 17
+    '}'    deslocar, e ir ao estado 79
+
+    datatype   ir ao estado 18
+    body       ir ao estado 35
+    statement  ir ao estado 20
+
+
+Estado 77
+
+    7 body: FOR '(' statement ';' condition ';' statement • ')' '{' body '}'
+
+    ')'  deslocar, e ir ao estado 80
+
+
+Estado 78
+
+    8 body: IF '(' condition ')' '{' body '}' • else
+
+    ELSE  deslocar, e ir ao estado 81
+
+    $padrão  reduzir usando a regra 14 (else)
+
+    else  ir ao estado 82
+
+
+Estado 79
+
+   12 body: WHILE '(' condition ')' '{' body '}' •
+
+    $padrão  reduzir usando a regra 12 (body)
+
+
+Estado 80
+
+    7 body: FOR '(' statement ';' condition ';' statement ')' • '{' body '}'
+
+    '{'  deslocar, e ir ao estado 83
+
+
+Estado 81
+
+   13 else: ELSE • '{' body '}'
+
+    '{'  deslocar, e ir ao estado 84
+
+
+Estado 82
+
+    8 body: IF '(' condition ')' '{' body '}' else •
+
+    $padrão  reduzir usando a regra 8 (body)
+
+
+Estado 83
+
+    7 body: FOR '(' statement ';' condition ';' statement ')' '{' • body '}'
+
+    VOID   deslocar, e ir ao estado 1
+    PRINT  deslocar, e ir ao estado 13
+    INT    deslocar, e ir ao estado 2
+    FLOAT  deslocar, e ir ao estado 3
+    CHAR   deslocar, e ir ao estado 4
+    FOR    deslocar, e ir ao estado 14
+    IF     deslocar, e ir ao estado 15
+    ID     deslocar, e ir ao estado 16
+    WHILE  deslocar, e ir ao estado 17
+
+    datatype   ir ao estado 18
+    body       ir ao estado 85
+    statement  ir ao estado 20
+
+
+Estado 84
+
+   13 else: ELSE '{' • body '}'
+
+    VOID   deslocar, e ir ao estado 1
+    PRINT  deslocar, e ir ao estado 13
+    INT    deslocar, e ir ao estado 2
+    FLOAT  deslocar, e ir ao estado 3
+    CHAR   deslocar, e ir ao estado 4
+    FOR    deslocar, e ir ao estado 14
+    IF     deslocar, e ir ao estado 15
+    ID     deslocar, e ir ao estado 16
+    WHILE  deslocar, e ir ao estado 17
+
+    datatype   ir ao estado 18
+    body       ir ao estado 86
+    statement  ir ao estado 20
+
+
+Estado 85
+
+    7 body: FOR '(' statement ';' condition ';' statement ')' '{' body • '}'
+   10     | body • body
+
+    VOID   deslocar, e ir ao estado 1
+    PRINT  deslocar, e ir ao estado 13
+    INT    deslocar, e ir ao estado 2
+    FLOAT  deslocar, e ir ao estado 3
+    CHAR   deslocar, e ir ao estado 4
+    FOR    deslocar, e ir ao estado 14
+    IF     deslocar, e ir ao estado 15
+    ID     deslocar, e ir ao estado 16
+    WHILE  deslocar, e ir ao estado 17
+    '}'    deslocar, e ir ao estado 87
+
+    datatype   ir ao estado 18
+    body       ir ao estado 35
+    statement  ir ao estado 20
+
+
+Estado 86
+
+   10 body: body • body
+   13 else: ELSE '{' body • '}'
+
+    VOID   deslocar, e ir ao estado 1
+    PRINT  deslocar, e ir ao estado 13
+    INT    deslocar, e ir ao estado 2
+    FLOAT  deslocar, e ir ao estado 3
+    CHAR   deslocar, e ir ao estado 4
+    FOR    deslocar, e ir ao estado 14
+    IF     deslocar, e ir ao estado 15
+    ID     deslocar, e ir ao estado 16
+    WHILE  deslocar, e ir ao estado 17
+    '}'    deslocar, e ir ao estado 88
+
+    datatype   ir ao estado 18
+    body       ir ao estado 35
+    statement  ir ao estado 20
+
+
+Estado 87
+
+    7 body: FOR '(' statement ';' condition ';' statement ')' '{' body '}' •
+
+    $padrão  reduzir usando a regra 7 (body)
+
+
+Estado 88
+
+   13 else: ELSE '{' body '}' •
+
+    $padrão  reduzir usando a regra 13 (else)

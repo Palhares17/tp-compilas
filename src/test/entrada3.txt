@@ -1,0 +1,4 @@
+
+TralaleroTralala main() {
+    printare("Ola linguagem P!");
+}
