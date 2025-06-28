@@ -1,4 +1,4 @@
 
 TralaleroTralala main() {
-    printare("Ola linguagem P!");
+    printare("Fala família!");
 }

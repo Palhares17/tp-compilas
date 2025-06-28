@@ -1,6 +1,6 @@
 
 TralaleroTralala main() {
-    TralaleroTralala x=1;
+    TralaleroTralala x=1
     TraleroLero f;
     TralaleroTralala a=3;
     TralaleroTralala x;
